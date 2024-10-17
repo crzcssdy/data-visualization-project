@@ -1,5 +1,5 @@
 1 - Uploaded the data to GitHub
 2 - Cleaned the data using python 
 3 - Stored the cleaned data in csv and json format 
-4 - Manually removed , and convert decimal numbers columns in 2 decimals 
+4 - Manually convert decimal numbers columns in 2 decimals and remove commas (changed Cote D'ivoire to Ivory Coast)
 5 - Uploaded the cleaned csv data to PGAdmin
