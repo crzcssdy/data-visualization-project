@@ -1,4 +1,5 @@
 1 - Uploaded the data to GitHub
 2 - Cleaned the data using python 
 3 - Stored the cleaned data in csv and json format 
-4 - Uploading the cleaned csv data to PGAdmin (testing purpose)
+4 - Manually removed , and convert decimal numbers columns in 2 decimals 
+5 - Uploaded the cleaned csv data to PGAdmin
