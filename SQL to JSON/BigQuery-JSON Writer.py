@@ -1,37 +1,40 @@
-from sqlalchemy import *
-from sqlalchemy.engine import create_engine
-from sqlalchemy.schema import *
-from sqlalchemy.orm import Session
-from pprint import pprint
+# Import BigQuery API and setup access
+from google.cloud import bigquery
+from google.oauth2 import service_account
 import json
+credentials = service_account.Credentials.from_service_account_file(
+'config.json')
 
+client = bigquery.Client(credentials= credentials)
 
-engine = create_engine('bigquery://', credentials_path='config.json')
-connection = engine.connect()
+query = """
+    SELECT year, country_name, indicator_name, value
+    FROM `bigquery-public-data.world_bank_wdi.indicators_data`
+    WHERE indicator_name IN (
+            'GDP per capita (current US$)',
+            'Fertility rate, total (births per woman)',
+            'Urban population',
+            'Rural population')
+    ORDER BY year DESC, country_name, indicator_name
+"""
+rows = client.query_and_wait(query)  # Make an API request.
 
-query = text("SELECT year, country_name, indicator_name, value \
-    FROM `bigquery-public-data.world_bank_wdi.indicators_data`\
-    WHERE indicator_name IN (\
-            'GDP per capita (current US$)',\
-            'Fertility rate, total (births per woman)',\
-            'Urban population',\
-            'Rural population')\
-    ORDER BY year DESC, country_name")
+results = []
+for row in rows:
+    results.append(row.values())
 
-session = Session(engine)
-rows = session.execute(query).fetchall()
-
-# Set a variable to hold previous year
+# Set variables to track country and year as we loop through list results
 previous_year_value = 0
 previous_country = ""
+# Set dictionaries and lists to hold the values
 year_dict = {}
 country_entry = {}
 metrics_dict = {}
 country_list = []
 
-for row in rows:
+for row in results:
     # Account for last line in rows
-    if row == rows[-1]:
+    if row == results[-1]:
         if metrics_dict != {}:
             metrics_dict[row[2]] = row[3] 
             country_entry['Metrics'] = metrics_dict
