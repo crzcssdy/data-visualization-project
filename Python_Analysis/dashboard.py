@@ -4,7 +4,7 @@ import plotly.express as px
 import json
 
 # Load the data from the JSON file
-with open('fertility_gdp_2014_2024.json') as f:
+with open('fertility_gdp_2004_2024.json') as f:
     data = json.load(f)
 
 # Convert the JSON data into a DataFrame
@@ -17,7 +17,7 @@ df['Fertility Rate'] = pd.to_numeric(df['Fertility Rate'], errors='coerce')
 df['GDP Percentage'] = pd.to_numeric(df['GDP Percentage'], errors='coerce')
 
 # Streamlit App Layout
-st.title("Global Population Growth and Fertility Trends in Relation to Economic Development (2014-2023)")
+st.title("Global Population Growth and Fertility Trends in Relation to Economic Development (2004-2023)")
 
 # Dropdown for selecting the metric (GDP, Fertility Rate, GDP Percentage)
 metric = st.selectbox("Select Metric to Display", ['GDP per Capita', 'Fertility Rate', 'GDP Percentage'])
@@ -26,15 +26,15 @@ metric = st.selectbox("Select Metric to Display", ['GDP per Capita', 'Fertility 
 st.subheader(f"Choropleth Map - {metric}")
 if metric == 'GDP per Capita':
     fig = px.choropleth(df, locations='Country Code', color='GDP', hover_name='Country Name',
-                        color_continuous_scale=px.colors.sequential.Plasma, title='Global GDP per Capita (2014-2023)',
+                        color_continuous_scale=px.colors.sequential.Plasma, title='Global GDP per Capita (2004-2023)',
                         animation_frame='Year', range_color=[df['GDP'].min(), df['GDP'].max()])
 elif metric == 'Fertility Rate':
     fig = px.choropleth(df, locations='Country Code', color='Fertility Rate', hover_name='Country Name',
-                        color_continuous_scale=px.colors.sequential.Plasma, title='Global Fertility Rates (2014-2023)',
+                        color_continuous_scale=px.colors.sequential.Plasma, title='Global Fertility Rates (2004-2023)',
                         animation_frame='Year', range_color=[df['Fertility Rate'].min(), df['Fertility Rate'].max()])
 else:
     fig = px.choropleth(df, locations='Country Code', color='GDP Percentage', hover_name='Country Name',
-                        color_continuous_scale=px.colors.sequential.Plasma, title='Global GDP Percentage Growth (2014-2023)',
+                        color_continuous_scale=px.colors.sequential.Plasma, title='Global GDP Percentage Growth (2004-2023)',
                         animation_frame='Year', range_color=[df['GDP Percentage'].min(), df['GDP Percentage'].max()])
 
 st.plotly_chart(fig)
@@ -47,7 +47,7 @@ df['GDP Percentage Size'] = df['GDP Percentage'].abs()
 
 # Create the scatter plot
 fig = px.scatter(df, x='GDP', y='Fertility Rate', color='Country Name', hover_name='Country Name',
-                 title="Fertility Rate vs GDP Per Capita (2014-2023)", animation_frame='Year', 
+                 title="Fertility Rate vs GDP Per Capita (2004-2023)", animation_frame='Year', 
                  size='GDP Percentage Size', size_max=15)  # Use the new non-negative size column
 
 st.plotly_chart(fig)
@@ -58,15 +58,15 @@ st.subheader("Trends over Time")
 countries = df['Country Name'].unique()
 selected_countries = st.multiselect('Select Countries to Compare', countries, default=['Afghanistan', 'Albania', 'Algeria'])
 
-# Filter data for selected countries and years between 2014 and 2022
-df_filtered = df[(df['Country Name'].isin(selected_countries)) & (df['Year'] >= 2014) & (df['Year'] <= 2022)]
+# Filter data for selected countries and years between 2004 and 2022
+df_filtered = df[(df['Country Name'].isin(selected_countries)) & (df['Year'] >= 2004) & (df['Year'] <= 2022)]
 
 # Ensure there are no NaN or 0 values in Fertility Rate or GDP
 df_filtered = df_filtered[(df_filtered['Fertility Rate'] > 0) & (df_filtered['GDP'] > 0)]
 
 # Create the line plot for Fertility Rate
 fig = px.line(df_filtered, x='Year', y='Fertility Rate', color='Country Name', 
-              title="Fertility Rate Trends Over Time (2014-2022)")
+              title="Fertility Rate Trends Over Time (2004-2022)")
 
 # Add markers for selected countries
 for country in selected_countries:

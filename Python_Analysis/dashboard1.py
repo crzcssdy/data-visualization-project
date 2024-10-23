@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import folium
+from streamlit_folium import st_folium
 
 # Load the data
 df = pd.read_json('Population_Mortality_2013_2023.json')
@@ -96,3 +98,5 @@ st.subheader(f"Proportions of {selected_series} across Countries in {selected_ye
 df_pie = df_year[df_year['Country Name'] != 'All Countries']
 fig_pie = px.pie(df_pie, names='Country Name', values='Value', title=f"{selected_series} Distribution in {selected_year}")
 st.plotly_chart(fig_pie)
+
+
