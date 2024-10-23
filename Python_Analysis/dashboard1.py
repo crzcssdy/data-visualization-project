@@ -5,7 +5,7 @@ import folium
 from streamlit_folium import st_folium
 
 # Load the data
-df = pd.read_json('Population_Mortality_2013_2023.json')
+df = pd.read_json('Population_Mortality_2003_2023.json')
 
 # Exclude South Asia from the dataset
 df = df[df['Country Name'] != 'South Asia']
@@ -37,7 +37,7 @@ all_countries_df = calculate_all_countries(df_melted)
 df_melted = pd.concat([all_countries_df, df_melted], ignore_index=True)
 
 # Streamlit App
-st.title("Global Population & Mortality Trends (2013-2023)")
+st.title("Global Population & Mortality Trends (2003-2023)")
 
 # Dropdowns for Series and Country
 selected_series = st.selectbox("Select Series", series_names)
@@ -50,7 +50,7 @@ else:
     df_filtered = df_melted[(df_melted['Series Name'] == selected_series) & (df_melted['Country Name'] == selected_country)]
 
 # Line Chart for the selected series and country
-fig = px.line(df_filtered, x='Year', y='Value', title=f"{selected_series} Trends for {selected_country} (2013-2023)")
+fig = px.line(df_filtered, x='Year', y='Value', title=f"{selected_series} Trends for {selected_country} (2003-2023)")
 st.plotly_chart(fig)
 
 # Additional Visualizations
@@ -59,12 +59,12 @@ st.plotly_chart(fig)
 st.subheader(f"Comparison of {selected_series} Across Countries")
 selected_countries = st.multiselect("Select Countries for Comparison", country_names, default=["All Countries"])
 df_compare = df_melted[(df_melted['Series Name'] == selected_series) & (df_melted['Country Name'].isin(selected_countries))]
-fig_compare = px.line(df_compare, x='Year', y='Value', color='Country Name', title=f"{selected_series} Comparison (2013-2023)")
+fig_compare = px.line(df_compare, x='Year', y='Value', color='Country Name', title=f"{selected_series} Comparison (2003-2023)")
 st.plotly_chart(fig_compare)
 
 # Bar Chart - Top 10 countries for the selected series and year (excluding 'All Countries')
 st.subheader(f"Top 10 and Bottom 10 Countries by {selected_series} in a Selected Year")
-selected_year = st.slider("Select Year", 2013, 2023, 2023)
+selected_year = st.slider("Select Year", 2003, 2023, 2023)
 df_year = df_melted[(df_melted['Series Name'] == selected_series) & (df_melted['Year'] == selected_year) & (df_melted['Country Name'] != 'All Countries')]
 
 # Top 10 countries
