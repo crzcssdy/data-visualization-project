@@ -3,7 +3,7 @@
 # Overview
 
 ## Background
-Fertility rates and population growth/decline are critical indicators of demographic trends that shape societies worldwide. As nations navigate economic, social, and environmental challenges, these rates have varied significantly, reflecting cultural norms, access to healthcare, global events, and government policies. Our project aims to visualize global population trends over the last 40 years with the goal of identifying factors which impact the generally perceived downward trend in overall population. We aim to highlight some of the realities of the current population demographics, and birth rates to provide some idea of future global trends.
+Fertility rates and population growth/decline are critical indicators of demographic trends that shape societies worldwide. As nations navigate economic, social, and environmental challenges, these rates have varied significantly, reflecting cultural norms, access to healthcare, global events, and government policies. Our project aims to visualize global population trends over the last 60 years with the goal of identifying factors which impact the generally perceived downward trend in overall population. We aim to highlight some of the realities of the current population demographics, and birth rates to provide some idea of future global trends.
 
 ## Data Source
 For our analysis, we primarily used the dataset “Health Nutrition and Population Statistics” provided by the World Bank Group, available publicly on their Databank website.
