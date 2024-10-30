@@ -7,10 +7,16 @@ Working dashboard can viewed at https://population-metrics-dashboard.streamlit.a
 ## Background & Purpose
 Fertility rates and population growth/decline are critical indicators of demographic trends that shape societies worldwide. As nations navigate economic, social, and environmental challenges, these rates have varied significantly, reflecting cultural norms, access to healthcare, global events, and government policies. Our project aims to visualize global population trends over the last 60 years with the goal of identifying factors which impact the generally perceived downward trend in overall population. We aim to highlight some of the realities of the current population demographics, and birth rates to provide some idea of future global trends.
 
-## Data Source
+## Data Source & Database Selection
 For our analysis, we primarily used the dataset “World Development Indicators” provided by the World Bank Group, available publicly on their Databank website and as a public dataset on Google's BigQuery SQL Database.  We chose this dataset specifically because it utilized the most robust set of variables and indicators which aligned closely with our visualization and analysis goals.
 *  The World Bank's World Development Indicators dataset on Google Cloud BigQuery SQL Database (used for this project via its API): https://console.cloud.google.com/marketplace/product/the-world-bank/wdi
 *  The World Bank's World Development Indicators database on DataBank: https://databank.worldbank.org/source/world-development-indicators
+
+For the purposes of storing and querying the data, we opted to use BigQuery due to the following reasons:
+* World Bank already loaded the data into BigQuery as a public dataset that was already pre-cleaned
+* In the absence of a database on a shared local/private network, a cloud-based database service allowed each member of our group to access that same dataset which decreased the chances of introducing errors
+* The Google Cloud API allows us to query data from our BigQuery database directly from our Python program, which reduces the chance of introducing errors while also saving on local file storage
+* Integrating BigQuery into our workflow was much more seamless since we were already using other tools/services within the Google Suite for organizing and planning
 
 ## Dependencies & Installations
 * Python and the following libraries/frameworks
@@ -22,6 +28,7 @@ For our analysis, we primarily used the dataset “World Development Indicators�
     * requests 2.32.3
     * streamlit_folium 0.23.1
     * plotly-express 0.4.1
+* BigQuery
 
 ## Program Execution
 * Streamlit Cloud Access (RECOMMENDED) - while the program can be run locally, it is recommended to access the live cloud based streamlit app at the following link: https://population-metrics-dashboard.streamlit.app/
