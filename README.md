@@ -14,7 +14,7 @@ For our analysis, we primarily used the dataset â€œWorld Development Indicatorsâ
 
 For the purposes of storing and querying the data, we opted to use BigQuery due to the following reasons:
 * World Bank already loaded the data into BigQuery as a public dataset that was already pre-cleaned
-* In the absence of a database on a shared local/private network, a cloud-based database service allowed each member of our group to access that same dataset which decreased the chances of introducing errors
+* In the absence of a database on a shared local/private network, a cloud-based database service allowed each member of our group to access and view the same dataset which decreased the chances of introducing data inconsistencies into our analysis
 * The Google Cloud API allows us to query data from our BigQuery database directly from our Python program, which reduces the chance of introducing errors while also saving on local file storage
 * Integrating BigQuery into our workflow was much more seamless since we were already using other tools/services within the Google Suite for organizing and planning
 
